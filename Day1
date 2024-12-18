@@ -1,0 +1,71 @@
+package day1;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Day1 
+{
+	static String[] allNumbers;
+	
+	public static void main(String[] args) throws FileNotFoundException, IOException 
+	{
+		String filePath = "input.txt";
+		
+		List<Integer> list1 = new ArrayList<Integer>();
+		List<Integer> list2 = new ArrayList<Integer>();
+		
+		try(BufferedReader reader = new BufferedReader(new FileReader(filePath)))
+		{
+			String line;
+			
+			while((line = reader.readLine()) != null)
+			{
+				allNumbers = line.split(" {3}");
+				
+				if(allNumbers.length == 2)
+				{
+					Integer num1 = Integer.parseInt(allNumbers[0]);
+					int num1Int = num1.intValue();
+					list1.add(num1Int);
+					
+					Integer num2 = Integer.parseInt(allNumbers[1]);
+					int num2Int = num2.intValue();
+					list2.add(num2Int);
+					
+					// System.out.println("Number 1: " + num1 + ", Number 2: " + num2);
+				}
+			}	
+		}
+		
+		int[] list1Int = list1.stream().mapToInt(Integer::intValue).toArray();
+		int[] list2Int = list2.stream().mapToInt(Integer::intValue).toArray();
+		
+		Arrays.sort(list1Int);
+		Arrays.sort(list2Int);
+		
+		System.out.println("List 1: " + list1Int);
+		System.out.println("List 2: " + list2Int);
+		
+		int distanceTotal = 0;
+		
+		
+		for (int i = 0; i < list1Int.length; i++)
+		{
+			distanceTotal = distanceTotal + Math.abs(list1Int[i] - list2Int[i]);
+			System.out.println(distanceTotal);
+		}
+		
+		
+		
+		/* Objectives:
+		 * Sort lists from smallest to biggest
+		 * find the distance between each number pair on the lists
+		 * add up all of the distances to distanceTotal
+		*/
+	}
+}
